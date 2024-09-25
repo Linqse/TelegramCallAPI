@@ -1,6 +1,10 @@
 # API для Telegram
 
-Этот API предоставляет возможность отправки текстовых сообщений, фотографий и инициации звонков через Telegram с использованием FastAPI и Pyrogram.
+Этот API предоставляет возможность отправки текстовых сообщений, фотографий и инициации звонков через Telegram.
+
+Делалось для использования в Lineage 2, Rust на платформе `EyeAuras` - софт для создания и автоматизации игр и не только. 
+
+То на сколько долго проживет данная API - зависит на прямую от вас. 
 
 ## Как пользоваться
 
@@ -12,31 +16,56 @@
 
    **POST** `/telegram`
 
-   #### Пример на C# (с использованием `HttpClient` и `Newtonsoft.Json`):
+   **Параметры:**
 
-   ```csharp
-   using System;
-   using System.Net.Http;
-   using System.Text;
-   using System.Threading.Tasks;
-   using Newtonsoft.Json;
+    - `username`: Telegram-юзернейм получателя (обязательный параметр)
+    - `text`: Текст сообщения (необязательный, если указан `photo_url`)
 
-   class Program
+   **Пример ответа:**
+
+   ```json
    {
-       static async Task Main(string[] args)
-       {
-           var client = new HttpClient();
-           var requestBody = new
-           {
-               username = "telegram_username",
-               text = "Привет!"
-           };
-
-           var content = new StringContent(JsonConvert.SerializeObject(requestBody), Encoding.UTF8, "application/json");
-
-           var response = await client.PostAsync("https://api.eyesquad.net/telegram", content);
-           var responseString = await response.Content.ReadAsStringAsync();
-           
-           Console.WriteLine(responseString);
-       }
+     "status": "Text message sent",
+     "username": "telegram_username",
+     "text": "Привет!"
    }
+    ```
+2. **Отправка фото с подписью**
+   
+    **POST `/telegram`**
+    
+    **Параметры:**
+    
+    - `username:` Telegram-юзернейм получателя (обязательный параметр)
+    - `photo_url:` URL изображения для отправки (обязательный параметр)
+    - `text:` Подпись к фото (необязательный параметр)
+   
+   **Пример ответа:**
+    ```json
+    {
+    "status": "Photo sent",
+    "username": "telegram_username",
+    "photo_url": "https://example.com/photo.jpg"
+    }
+    ```
+3. ***Инициация звонка***
+
+    **POST `/telegram`**
+    
+    Параметры:
+    
+    - `username:` Telegram-юзернейм получателя (обязательный параметр)
+    - `call:` Параметр для инициации звонка (обязательный, установите в true)
+
+    **Пример ответа:**
+    ```json
+          {
+          "status": "Call initiated",
+          "username": "telegram_username"
+          }
+    ```
+
+    **Ошибки**
+    - При отсутствии обязательных параметров возвращается код ошибки 400.
+    - В случае непредвиденных ошибок возвращается код ошибки 500.
+   
