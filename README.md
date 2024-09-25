@@ -10,7 +10,7 @@
 
 ## Как пользоваться
 
-Скрипт размещён по адресу: [https://api.eyesquad.net/telegram](https://api.eyesquad.net/telegram).
+Адресс для POST запросов : [https://api.eyesquad.net/telegram](https://api.eyesquad.net/telegram).
 
 ### Возможные запросы
 
