@@ -10,7 +10,7 @@
 
 ## Как пользоваться
 
-Адресс для POST запросов : [https://api.eyesquad.net/telegram](https://api.eyesquad.net/telegram).
+Адресс для POST запросов : [https://telegram.banka.gg/](https://telegram.banka.gg/).
 
 ### Возможные запросы
 
